@@ -2,9 +2,9 @@
     "configurations": [
         {
             "name": "MinGW",
-    
             "includePath": [
-                "${workspaceFolder}"
+                "${workspaceFolder}",
+                "C:\\MinGW\\include"
             ],
             "defines": [
                 "_DEBUG",
@@ -14,14 +14,16 @@
             "intelliSenseMode": "clang-x64",
             "browse": {
                 "path": [
-                    "${workspaceFolder}"
+                    "${workspaceFolder}",
+                    "C:\\MinGW\\include"
                 ],
                 "limitSymbolsToIncludedHeaders": true,
                 "databaseFilename": ""
             },
             "cStandard": "c11",
-            "cppStandard": "c++17"
+            "cppStandard": "c++17",
+            "compilerPath": "C:/MinGW/bin/gcc.exe"
         }
     ],
     "version": 4
-    }
+}
