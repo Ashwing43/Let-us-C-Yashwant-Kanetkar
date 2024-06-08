@@ -119,6 +119,5 @@ int main()
 			printf("Hundred ");
 	}
 	printf("\n");
-	_getch();
 	return 0;
 }
