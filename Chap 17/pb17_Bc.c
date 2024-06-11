@@ -1,14 +1,19 @@
 #include<stdio.h>
 #include<string.h>
 #include<math.h>
-int getValue(char *a);
-char* getString(int i);
+
 struct part
 {
     int year;
     char mat[10];
     int quantity;
 };
+
+int getValue(char *a);
+char* getString(int i);
+void printAll(struct part *parts);
+void input(struct part *parts);
+void printSingle(struct part *parts);
 
 int main(){
     struct part parts[360] = {0};
@@ -18,48 +23,23 @@ int main(){
         scanf("%d", &ch);
         fflush(stdin);
         if(ch == 1){
-            char sn[4];
-            printf("Enter serial number ");
-            fgets(sn, 4, stdin);
-            fflush(stdin);
-            int val = getValue(sn);
-            printf("Enter year of manufacturing, quantity ");
-            scanf("%d %d", &parts[val].year, &parts[val].quantity);
-            fflush(stdin);
-            char temp[10];
-            printf("Enter material ");
-            scanf("%s", temp);
-            strcpy(parts[val].mat, temp);
-        }else if(ch == 2){
-            char sn[4];
-            printf("Enter serial number ");
-            fgets(sn, 4, stdin);
-            fflush(stdin);
-            int val = getValue(sn);
-            printf("\tSr no\tYear of Man\tMaterial\tQuantity\n\t%s\t%d\t\t%s\t\t%d\n", sn, parts[val].year, parts[val].mat, parts[val].quantity);
-        }else if(ch == 3){
-            int val1 = getValue("BB0");
-            int val2 = getValue("CC6");
-            printf("\tSr no\tYear of Man\tMaterial\tQuantity\n");
-            for(int i=0; i<360; i++){
-                if(i>=val1 && i<=val2 && parts[i].year != 0){
-                    printf("\t%s\t%d\t\t%s\t\t%d\n", getString(i), parts[i].year, parts[i].mat, parts[i].quantity);
-                }
-            }
-        }else{
+            input(parts);
+        }
+        if(ch == 2){
+            printSingle(parts);
+        }
+        if(ch == 3){
+            printAll(parts);
+        }else if(ch == 4){
             printf("Exited");
             break;
         }
         fflush(stdin);
     }
-    
     return 0;
 }
 int getValue(char *a){
-    // printf("%s", a);
-    int ans = 0;
-    ans = 60*(a[0]-'A') + 10*(a[1]-'A') + a[2]-'0';
-    return ans;
+    return 60*(a[0]-'A') + 10*(a[1]-'A') + a[2]-'0';
 }
 char* getString(int i){
     static char ans[4];
@@ -70,4 +50,34 @@ char* getString(int i){
     ans[2] = '0'+ i;
     ans[3] = '\0';
     return ans;
+}
+void printAll(struct part *parts){
+    int val1 = getValue("BB0");
+    int val2 = getValue("CC6");
+    printf("\tSr no\tYear of Man\tMaterial\tQuantity\n");
+    for(int i=0; i<360; i++){
+        if(i>=val1 && i<=val2 && parts[i].year != 0){
+            printf("\t%s\t%d\t\t%s\t\t%d\n", 
+                    getString(i), parts[i].year, parts[i].mat, parts[i].quantity);
+        }
+    }
+}
+void input(struct part *parts){
+    char sn[4];
+    printf("Enter serial number ");
+    fgets(sn, 4, stdin);
+    fflush(stdin);
+    int val = getValue(sn);
+    printf("Enter year of manufacturing, quantity, and material: ");
+    scanf("%d %d %9s", &parts[val].year, &parts[val].quantity, parts[val].mat);
+    fflush(stdin);
+}
+void printSingle(struct part *parts){
+    char sn[4];
+    printf("Enter serial number ");
+    fgets(sn, 4, stdin);
+    fflush(stdin);
+    int val = getValue(sn);
+    printf("\tSr no\tYear of Man\tMaterial\tQuantity\n\t%s\t%d\t\t%s\t\t%d\n", 
+            sn, parts[val].year, parts[val].mat, parts[val].quantity);
 }
