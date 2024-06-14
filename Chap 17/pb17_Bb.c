@@ -4,7 +4,7 @@ struct customer
     /* data */
     int acc;
     char name[30];
-    int balance;
+    int balances;
 };
 
 int main(){
